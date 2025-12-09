@@ -53,6 +53,17 @@ Preview the production build locally:
 npm run preview
 ```
 
+### 4. Docker Deployment
+Build and run with Docker:
+```bash
+# Build image
+docker build -t anc-frontend .
+
+# Run container (port 8080)
+docker run -p 8080:80 anc-frontend
+```
+Access at `http://localhost:8080`.
+
 ## 📡 Backend Integration
 
 The frontend assumes the ANC backend is running on `http://localhost:5000` by default.
