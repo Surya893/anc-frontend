@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>ANC System Control</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -46,10 +48,8 @@
                 <span class="badge" id="intensity-value">50%</span>
             </div>
             <div class="card-body">
-                <input type="range" id="intensity-slider"
-                       class="slider"
-                       min="0" max="100" value="50"
-                       oninput="updateIntensity(this.value)">
+                <input type="range" id="intensity-slider" class="slider" min="0" max="100" value="50"
+                    oninput="updateIntensity(this.value)">
                 <div class="slider-labels">
                     <span>Low</span>
                     <span>Medium</span>
@@ -68,7 +68,7 @@
                 <div class="detection-display">
                     <div class="detection-icon" id="detection-icon">
                         <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M12 2v20M17 7l-5 5-5-5M17 17l-5-5-5 5"/>
+                            <path d="M12 2v20M17 7l-5 5-5-5M17 17l-5-5-5 5" />
                         </svg>
                     </div>
                     <div class="detection-info">
@@ -93,10 +93,8 @@
                     <label for="threshold-slider">Alert After (seconds):</label>
                     <span class="badge" id="threshold-value">5s</span>
                 </div>
-                <input type="range" id="threshold-slider"
-                       class="slider"
-                       min="1" max="60" value="5"
-                       oninput="updateThreshold(this.value)">
+                <input type="range" id="threshold-slider" class="slider" min="1" max="60" value="5"
+                    oninput="updateThreshold(this.value)">
                 <div class="prolonged-status" id="prolonged-status">
                     <div class="status-item">
                         <span class="label">Current Duration:</span>
@@ -194,6 +192,7 @@
     <div class="toast-container" id="toast-container"></div>
 
     <!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script type="module" src="../static/js/app.js"></script>
 </body>
+
 </html>

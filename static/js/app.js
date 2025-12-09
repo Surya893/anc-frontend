@@ -1,4 +1,6 @@
 // ANC System Web App - Frontend JavaScript
+import api from '../../src/services/api.js';
+import wsClient from '../../src/services/websocket.js';
 
 // State management
 let appState = {
@@ -20,7 +22,7 @@ const UPDATE_INTERVAL = 1000; // 1 second
 let updateTimer = null;
 
 // Initialize app
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('ANC System Web App initialized');
 
     // Start status updates
@@ -34,12 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Toggle ANC
 async function toggleANC() {
     try {
-        const response = await fetch('/api/toggle_anc', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
+        const data = await api.request('/api/toggle_anc', {
+            method: 'POST'
         });
-
-        const data = await response.json();
 
         if (data.success) {
             appState.ancEnabled = data.anc_enabled;
@@ -80,13 +79,10 @@ async function updateIntensity(value) {
     document.getElementById('intensity-value').textContent = value + '%';
 
     try {
-        const response = await fetch('/api/set_intensity', {
+        const data = await api.request('/api/set_intensity', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({intensity: intensity})
+            body: JSON.stringify({ intensity: intensity })
         });
-
-        const data = await response.json();
 
         if (data.success) {
             appState.noiseIntensity = data.intensity;
@@ -101,13 +97,10 @@ async function toggleProlonged() {
     const enabled = document.getElementById('prolonged-toggle').checked;
 
     try {
-        const response = await fetch('/api/prolonged_detection', {
+        const data = await api.request('/api/prolonged_detection', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({enabled: enabled})
+            body: JSON.stringify({ enabled: enabled })
         });
-
-        const data = await response.json();
 
         if (data.success) {
             appState.prolongedDetection = data.prolonged_detection;
@@ -123,13 +116,10 @@ async function updateThreshold(value) {
     document.getElementById('threshold-value').textContent = value + 's';
 
     try {
-        const response = await fetch('/api/prolonged_detection', {
+        const data = await api.request('/api/prolonged_detection', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({threshold_seconds: parseInt(value)})
+            body: JSON.stringify({ threshold_seconds: parseInt(value) })
         });
-
-        const data = await response.json();
 
         if (data.success) {
             appState.prolongedDetection = data.prolonged_detection;
@@ -148,8 +138,7 @@ function startStatusUpdates() {
 // Update status from server
 async function updateStatus() {
     try {
-        const response = await fetch('/api/status');
-        const data = await response.json();
+        const data = await api.request('/api/status');
 
         // Update state
         appState.ancEnabled = data.anc_enabled;
@@ -221,7 +210,7 @@ function showEmergencyAlert(noiseClass, confidence) {
     const card = document.getElementById('emergency-card');
     const message = document.getElementById('emergency-message');
 
-    message.textContent = `${capitalize(noiseClass)} detected! (${Math.round(confidence*100)}% confidence) - ANC bypassed for safety`;
+    message.textContent = `${capitalize(noiseClass)} detected! (${Math.round(confidence * 100)}% confidence) - ANC bypassed for safety`;
     card.style.display = 'block';
 }
 
@@ -239,8 +228,7 @@ function acknowledgeEmergency() {
 // Check for notifications
 async function checkNotifications() {
     try {
-        const response = await fetch('/api/notifications');
-        const data = await response.json();
+        const data = await api.request('/api/notifications');
 
         if (data.notifications && data.notifications.length > 0) {
             displayNotifications(data.notifications);
@@ -297,12 +285,9 @@ function createNotificationElement(notification) {
 // Clear notifications
 async function clearNotifications() {
     try {
-        const response = await fetch('/api/clear_notifications', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
+        const data = await api.request('/api/clear_notifications', {
+            method: 'POST'
         });
-
-        const data = await response.json();
 
         if (data.success) {
             const container = document.getElementById('notifications');
@@ -321,12 +306,9 @@ async function resetStats() {
     }
 
     try {
-        const response = await fetch('/api/reset_stats', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
+        const data = await api.request('/api/reset_stats', {
+            method: 'POST'
         });
-
-        const data = await response.json();
 
         if (data.success) {
             showToast(data.message, 'success');
@@ -339,17 +321,14 @@ async function resetStats() {
 // Simulate noise (for testing)
 async function simulateNoise(noiseType, isEmergency) {
     try {
-        const response = await fetch('/api/simulate_noise', {
+        const data = await api.request('/api/simulate_noise', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 noise_type: noiseType,
                 emergency: isEmergency,
                 confidence: 0.85 + Math.random() * 0.15
             })
         });
-
-        const data = await response.json();
 
         if (data.success) {
             showToast(`Simulated ${noiseType} ${isEmergency ? '(Emergency)' : ''}`, 'info');
@@ -384,18 +363,14 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Add slideOut animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
+// Expose functions to window for HTML onclick handlers
+window.toggleANC = toggleANC;
+window.updateIntensity = updateIntensity;
+window.toggleProlonged = toggleProlonged;
+window.updateThreshold = updateThreshold;
+window.dismissEmergency = dismissEmergency;
+window.acknowledgeEmergency = acknowledgeEmergency;
+window.clearNotifications = clearNotifications;
+window.resetStats = resetStats;
+window.simulateNoise = simulateNoise;
+

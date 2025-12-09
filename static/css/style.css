@@ -509,6 +509,16 @@ input:checked + .switch-slider:before {
         opacity: 1;
     }
 }
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
 
 .toast.success {
     border-left-color: var(--success-color);

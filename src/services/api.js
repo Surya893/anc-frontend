@@ -3,7 +3,9 @@
  * Handles all HTTP requests to the backend
  */
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL =
+    (typeof window !== 'undefined' && window.ANC_CONFIG && window.ANC_CONFIG.API_URL) ||
+    'http://localhost:5000';
 
 class APIClient {
     constructor(baseURL) {

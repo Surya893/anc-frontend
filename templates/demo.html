@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,7 @@
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             text-align: center;
         }
 
@@ -58,8 +59,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         .card {
@@ -67,7 +75,7 @@
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .card h2 {
@@ -237,6 +245,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -299,7 +308,8 @@
                 <button class="btn btn-small" onclick="simulateNoise('Traffic', '🚗', 92)">Traffic</button>
                 <button class="btn btn-small" onclick="simulateNoise('Construction', '🚧', 95)">Construction</button>
                 <button class="btn btn-small btn-warning" onclick="simulateNoise('Alarm', '🚨', 98)">Alarm</button>
-                <button class="btn btn-small btn-danger" onclick="simulateNoise('Siren', '🚨', 99)">Emergency Siren</button>
+                <button class="btn btn-small btn-danger" onclick="simulateNoise('Siren', '🚨', 99)">Emergency
+                    Siren</button>
                 <button class="btn btn-small" onclick="simulateNoise('Music', '🎵', 85)">Music</button>
             </div>
             <div id="notification"></div>
@@ -331,10 +341,12 @@
         <!-- Platform Features -->
         <div class="card">
             <h2>🚀 Platform Features</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 20px;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 20px;">
                 <div style="padding: 15px; background: #f5f5f5; border-radius: 8px;">
                     <strong>🎯 Advanced Algorithms</strong>
-                    <p style="margin-top: 5px; color: #666;">LMS, NLMS, RLS, Frequency-domain ANC with adaptive filtering</p>
+                    <p style="margin-top: 5px; color: #666;">LMS, NLMS, RLS, Frequency-domain ANC with adaptive
+                        filtering</p>
                 </div>
                 <div style="padding: 15px; background: #f5f5f5; border-radius: 8px;">
                     <strong>🤖 ML Classification</strong>
@@ -350,7 +362,8 @@
                 </div>
                 <div style="padding: 15px; background: #f5f5f5; border-radius: 8px;">
                     <strong>☁️ Cloud Ready</strong>
-                    <p style="margin-top: 5px; color: #666;">Docker, Kubernetes, multi-cloud deployment (AWS/GCP/Azure)</p>
+                    <p style="margin-top: 5px; color: #666;">Docker, Kubernetes, multi-cloud deployment (AWS/GCP/Azure)
+                    </p>
                 </div>
                 <div style="padding: 15px; background: #f5f5f5; border-radius: 8px;">
                     <strong>📊 Monitoring</strong>
@@ -395,7 +408,7 @@
         }
 
         // Update intensity
-        document.getElementById('intensitySlider').addEventListener('input', function(e) {
+        document.getElementById('intensitySlider').addEventListener('input', function (e) {
             document.getElementById('intensityValue').textContent = e.target.value + '%';
         });
 
@@ -425,4 +438,5 @@
         }
     </script>
 </body>
+
 </html>

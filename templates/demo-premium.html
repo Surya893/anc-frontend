@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANC Platform - Redefining Silence</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #0071e3;
@@ -62,8 +64,13 @@
         }
 
         @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Glass morphism container */
@@ -212,9 +219,12 @@
         }
 
         @keyframes pulse-glow {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 20px 60px rgba(48, 209, 88, 0.4);
             }
+
             50% {
                 box-shadow: 0 20px 70px rgba(48, 209, 88, 0.6);
             }
@@ -506,7 +516,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive */
@@ -575,6 +587,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="bg-gradient"></div>
 
@@ -647,13 +660,15 @@
             <!-- Volume Meters -->
             <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                 <div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">ORIGINAL VOLUME</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">ORIGINAL VOLUME
+                    </div>
                     <div class="volume-meter">
                         <div class="volume-fill" id="volumeBefore"></div>
                     </div>
                 </div>
                 <div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">PROCESSED VOLUME</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">PROCESSED VOLUME
+                    </div>
                     <div class="volume-meter">
                         <div class="volume-fill" id="volumeAfter"></div>
                     </div>
@@ -801,7 +816,7 @@
             const buffer = audioContext.createBuffer(1, bufferSize, sampleRate);
             const data = buffer.getChannelData(0);
 
-            switch(type) {
+            switch (type) {
                 case 'white':
                     for (let i = 0; i < bufferSize; i++) {
                         data[i] = Math.random() * 2 - 1;
@@ -828,8 +843,8 @@
                     for (let i = 0; i < bufferSize; i++) {
                         const t = i / sampleRate;
                         data[i] = Math.sin(2 * Math.PI * 60 * t) * 0.3 +
-                                 Math.sin(2 * Math.PI * 120 * t) * 0.2 +
-                                 (Math.random() * 2 - 1) * 0.3;
+                            Math.sin(2 * Math.PI * 120 * t) * 0.2 +
+                            (Math.random() * 2 - 1) * 0.3;
                     }
                     break;
 
@@ -839,8 +854,8 @@
                         const t = i / sampleRate;
                         const typing = Math.random() < 0.01 ? Math.random() : 0;
                         data[i] = Math.sin(2 * Math.PI * 50 * t) * 0.1 +
-                                 (Math.random() * 2 - 1) * 0.1 +
-                                 typing * 0.5;
+                            (Math.random() * 2 - 1) * 0.1 +
+                            typing * 0.5;
                     }
                     break;
 
@@ -849,8 +864,8 @@
                     for (let i = 0; i < bufferSize; i++) {
                         const t = i / sampleRate;
                         data[i] = Math.sin(2 * Math.PI * 80 * t) * 0.4 +
-                                 Math.sin(2 * Math.PI * 160 * t) * 0.3 +
-                                 (Math.random() * 2 - 1) * 0.5;
+                            Math.sin(2 * Math.PI * 160 * t) * 0.3 +
+                            (Math.random() * 2 - 1) * 0.5;
                     }
                     break;
 
@@ -860,8 +875,8 @@
                         const t = i / sampleRate;
                         const clink = Math.random() < 0.005 ? Math.random() * Math.sin(2 * Math.PI * 2000 * t) : 0;
                         data[i] = (Math.random() * 2 - 1) * 0.2 +
-                                 Math.sin(2 * Math.PI * 200 * t + Math.random()) * 0.15 +
-                                 clink * 0.3;
+                            Math.sin(2 * Math.PI * 200 * t + Math.random()) * 0.15 +
+                            clink * 0.3;
                     }
                     break;
             }
@@ -1118,4 +1133,5 @@
         });
     </script>
 </body>
+
 </html>
